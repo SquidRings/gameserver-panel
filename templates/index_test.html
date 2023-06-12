@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Panel d'hébergement de serveurs de jeux</title>
+</head>
+<body>
+    <h1>Liste des serveurs de jeux actifs</h1>
+    <ul>
+        {% for container in containers %}
+        <li>{{ container.name }} - {{ container.status }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Démarrer un nouveau serveur de jeu</h2>
+    <form action="/start_server" method="POST">
+        <label for="game">Jeu :</label>
+        <select name="game" id="game">
+            <option value="minecraft">Minecraft</option>
+            <option value="ark">ARK: Survival Evolved</option>
+            <option value="rust">Rust</option>
+            <!-- Ajoute ici d'autres jeux disponibles -->
+        </select>
+        <br>
+        <label for="port">Port :</label>
+        <input type="text" name="port" id="port">
+        <br>
+        <input type="submit" value="Démarrer le serveur">
+    </form>
+
+    <h2>Arrêter un serveur de jeu</h2>
+    <form action="/stop_server" method="POST">
+        <label for="container_id">ID du conteneur :</label>
+        <input type="text" name="container_id" id="container_id">
+        <br>
+        <input type="submit" value="Arrêter le serveur">
+    </form>
+</body>
+</html>

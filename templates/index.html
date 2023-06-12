@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interface de contrôle de serveur</title>
+</head>
+<body>
+    <h1>Interface de contrôle de serveur</h1>
+
+    <h2>Démarrer un serveur</h2>
+    <form action="/start_server" method="post">
+        <label for="game">Jeu :</label>
+        <select id="game" name="game">
+            <option value="minecraft">Minecraft</option>
+            <option value="ark">ARK: Survival Evolved</option>
+            <option value="rust">Rust</option>
+        </select>
+        <br>
+        <label for="port">Port :</label>
+        <input type="text" id="port" name="port">
+        <br>
+        <button type="submit">Démarrer le serveur</button>
+    </form>
+
+    <h2>Arrêter un serveur</h2>
+    <form action="/stop_server" method="post">
+        <label for="container_id">ID du conteneur :</label>
+        <input type="text" id="container_id" name="container_id">
+        <br>
+        <button type="submit">Arrêter le serveur</button>
+    </form>
+
+    <h2>Liste des nom des conteneur</h2>
+    <ul>
+        {% for container in containers %}
+            <li>
+<!--                <a href="/files/{{ container.id }}">{{ container.id }}</a>-->
+              <p>{{ container.id }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

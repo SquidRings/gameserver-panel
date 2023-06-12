@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Server Control</title>
+  <style>
+    #terminal-container {
+      height: 400px;
+      width: 100%;
+      background-color: black;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contrôle du serveur</h1>
+  <h2>Détails du serveur</h2>
+  <p>Adresse IP: {{ container_details.NetworkSettings.IPAddress }}</p>
+  <!-- Autres informations du serveur -->
+
+  <h2>Terminal</h2>
+  <div id="terminal-container"></div>
+
+  <h2>Accès aux fichiers</h2>
+  <form action="{{ url_for('upload_file', container_id=container_details.Id) }}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type="submit" value="Téléverser">
+  </form>
+
+  <h3>Liste des fichiers</h3>
+  <ul>
+    {% for file in files %}
+      <li>{{ file }}</li>
+    {% endfor %}
+  </ul>
+
+      <h2>Arrêter un serveur de jeu</h2>
+    <form action="/stop_server" method="POST">
+        <label for="container_id">ID du conteneur :</label>
+        <input type="text" name="container_id" id="container_id">
+        <br>
+        <input type="submit" value="Arrêter le serveur">
+    </form>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/4.8.2/xterm.min.js"></script>
+  <script>
+    const socket = io();
+
+    // Création du terminal
+    const term = new Terminal();
+    term.open(document.getElementById('terminal-container'));
+
+    // Recevoir les sorties du terminal provenant du serveur
+    socket.on('terminal_output', function(data) {
+      term.write(data.output);
+    });
+
+    // Envoyer les données au serveur
+    term.onData(function(data) {
+      socket.emit('terminal_input', { input: data });
+    });
+
+    // Connexion au terminal
+    socket.emit('connect_terminal', { container_id: '{{ container_details.Id }}' });
+  </script>
+</body>
+</html>
