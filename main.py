@@ -8,7 +8,22 @@ client = docker.from_env()
 def index():
     # Get a list of active Docker containers
     containers = client.containers.list()
-    return render_template('index.html', containers=containers)
+
+    container_info = []
+    for container in containers:
+        container_id = container.id
+        container_ip = container.attrs['NetworkSettings']['IPAddress']
+        container_ports = container.attrs['NetworkSettings']['Ports']
+        ports = []
+        for port in container_ports:
+            if container_ports[port] is not None:
+                container_port = port.split('/')[0]
+                host_port = container_ports[port][0]['HostPort']
+                ports.append({'container_port': container_port, 'host_port': host_port})
+
+        container_info.append({'id': container_id, 'ip_address': container_ip, 'ports': ports})
+
+    return render_template('index.html', container_info=container_info)
 
 @app.route('/start_server', methods=['POST'])
 def start_server():
@@ -45,7 +60,7 @@ def stop_server():
     container.stop()
     container.remove()
 
-    return 'Game server shut down successfully !'
+    return 'Game server deleted successfully !'
 
 @app.route('/container_control', methods=['POST'])
 def container_control():

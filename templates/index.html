@@ -43,7 +43,27 @@
         {% endfor %}
     </ul>
 
-    <h2>Stop a Game Server</h2>
+    <h1>Container Information</h1>
+    <table>
+        <tr>
+            <th>Container ID</th>
+            <th>IP Address</th>
+            <th>Ports</th>
+        </tr>
+        {% for container in container_info %}
+        <tr>
+            <td>{{ container.id }}</td>
+            <td>{{ container.ip_address }}</td>
+            <td>
+                {% for port in container.ports %}
+                <p>Container Port: {{ port.container_port }}, Host Port: {{ port.host_port }}</p>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Delete a Game Server</h2>
     <form action="/stop_server" method="POST">
         <label for="container_id">Container ID:</label>
         <input type="text" name="container_id" id="container_id">
