@@ -6,14 +6,25 @@
 <body>
     <h1>Container Control</h1>
 
-    <form method="POST" action="/container_control">
-        <select name="container_id">
-            {% for container in containers %}
-                <option value="{{ container.id }}">{{ container.name }}</option>
-            {% endfor %}
+    <h2>Active Containers</h2>
+    <ul>
+        {% for container in containers %}
+            <li>{{ container.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Control Containers</h2>
+    <form action="/container_control" method="POST">
+        <label for="container_id">Container ID:</label>
+        <input type="text" name="container_id" id="container_id">
+        <br><br>
+        <label for="action">Action:</label>
+        <select name="action" id="action">
+            <option value="start">Start</option>
+            <option value="stop">Stop</option>
         </select>
-        <button type="submit" name="action" value="start">Start</button>
-        <button type="submit" name="action" value="stop">Stop</button>
+        <br><br>
+        <input type="submit" value="Perform Action">
     </form>
 </body>
 </html>

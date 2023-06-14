@@ -1,42 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Server Control Interface</title>
+    <title>Game Server Management</title>
 </head>
 <body>
-    <h1>Server Control Interface</h1>
+    <h1>Game Server Management</h1>
 
-    <h2>Start a server</h2>
-    <form action="/start_server" method="post">
-        <label for="game">Game :</label>
-        <select id="game" name="game">
+    <h2>Start a Game Server</h2>
+    <form action="/start_server" method="POST">
+        <label for="game">Select Game:</label>
+        <select name="game" id="game">
             <option value="minecraft">Minecraft</option>
             <option value="ark">ARK: Survival Evolved</option>
             <option value="rust">Rust</option>
         </select>
-        <br>
-        <label for="port">Port :</label>
-        <input type="text" id="port" name="port">
-        <br>
-        <button type="submit">Start the server</button>
+        <br><br>
+        <label for="port">Server Port:</label>
+        <input type="text" name="port" id="port">
+        <br><br>
+        <label for="ram">RAM:</label>
+        <select name="ram" id="ram">
+            <option value="1g">1GB</option>
+            <option value="2g">2GB</option>
+            <option value="4g">4GB</option>
+        </select>
+        <br><br>
+        <label for="image_size">Image Size:</label>
+        <select name="image_size" id="image_size">
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Start Server">
     </form>
 
-    <h2>Stop a server</h2>
-    <form action="/stop_server" method="post">
-        <label for="container_id">Container ID :</label>
-        <input type="text" id="container_id" name="container_id">
-        <br>
-        <button type="submit">Stop the server</button>
-    </form>
-
-    <h2>List of container running names</h2>
+    <h2>Active Game Servers</h2>
     <ul>
         {% for container in containers %}
-            <li>
-<!--                <a href="/files/{{ container.id }}">{{ container.id }}</a>-->
-              <p>{{ container.id }}</p>
-            </li>
+            <li>{{ container.name }}:</li>
+            <p>{{ container.id }}</p>
         {% endfor %}
     </ul>
+
+    <h2>Stop a Game Server</h2>
+    <form action="/stop_server" method="POST">
+        <label for="container_id">Container ID:</label>
+        <input type="text" name="container_id" id="container_id">
+        <br><br>
+        <input type="submit" value="Stop Server">
+    </form>
 </body>
 </html>

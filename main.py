@@ -15,10 +15,12 @@ def start_server():
     # Retrieve form information
     game = request.form.get('game')
     port = request.form.get('port')
+    ram = request.form.get('ram')
+    image_size = request.form.get('image_size')
 
     if game == 'minecraft':
         # Create a new container for the Minecraft server
-        container = client.containers.run('itzg/minecraft-server', ports={'25565/tcp': int(port)}, environment={'EULA': 'TRUE'}, detach=True, tty=True)
+        container = client.containers.run('itzg/minecraft-server', ports={'25565/tcp': int(port)}, environment={'EULA': 'TRUE', 'IMAGE_SIZE': image_size}, detach=True, tty=True, mem_limit=ram)
 
     elif game == 'ark':
         # Create a new container for the ARK: Survival Evolved server
@@ -45,7 +47,6 @@ def stop_server():
 
     return 'Game server shut down successfully !'
 
-# add a button to control all container with terminal ftp control and always show all containers run or not running
 @app.route('/container_control', methods=['POST'])
 def container_control():
     # Get a list of active Docker containers
