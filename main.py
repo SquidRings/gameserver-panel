@@ -18,7 +18,7 @@ def start_server():
 
     if game == 'minecraft':
         # Create a new container for the Minecraft server
-        container = client.containers.run('itzg/minecraft-server', ports={'25565/tcp': int(port)}, detach=True)
+        container = client.containers.run('itzg/minecraft-server', ports={'25565/tcp': int(port)}, environment={'EULA': 'TRUE'}, detach=True, tty=True)
 
     elif game == 'ark':
         # Create a new container for the ARK: Survival Evolved server
