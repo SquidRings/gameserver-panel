@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Interface de contrôle de serveur</title>
+    <title>Server Control Interface</title>
 </head>
 <body>
-    <h1>Interface de contrôle de serveur</h1>
+    <h1>Server Control Interface</h1>
 
-    <h2>Démarrer un serveur</h2>
+    <h2>Start a server</h2>
     <form action="/start_server" method="post">
-        <label for="game">Jeu :</label>
+        <label for="game">Game :</label>
         <select id="game" name="game">
             <option value="minecraft">Minecraft</option>
             <option value="ark">ARK: Survival Evolved</option>
@@ -18,18 +18,18 @@
         <label for="port">Port :</label>
         <input type="text" id="port" name="port">
         <br>
-        <button type="submit">Démarrer le serveur</button>
+        <button type="submit">Start the server</button>
     </form>
 
-    <h2>Arrêter un serveur</h2>
+    <h2>Stop a server</h2>
     <form action="/stop_server" method="post">
         <label for="container_id">ID du conteneur :</label>
         <input type="text" id="container_id" name="container_id">
         <br>
-        <button type="submit">Arrêter le serveur</button>
+        <button type="submit">Stop the server</button>
     </form>
 
-    <h2>Liste des nom des conteneur</h2>
+    <h2>List of container running names</h2>
     <ul>
         {% for container in containers %}
             <li>
