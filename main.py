@@ -45,7 +45,7 @@ def stop_server():
 
     return 'Game server shut down successfully !'
 
-# TODO: add a button to control all container with terminal ftp control and always show all containers run or not running
+# add a button to control all container with terminal ftp control and always show all containers run or not running
 @app.route('/container_control', methods=['POST'])
 def container_control():
     # Get a list of active Docker containers
