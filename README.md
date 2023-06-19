@@ -30,7 +30,7 @@ Install my-project with npm
 [![discord]](https://discord.gg/VdyGSGWefa)
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[GPL-3.0](https://choosealicense.com/licenses/gpl-3.0/)
 
 
 ## Authors
