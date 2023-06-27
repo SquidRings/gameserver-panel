@@ -10,8 +10,6 @@ A game server panel coded on python using flask and docker api. It's like a dock
 
 ## Installation
 
-Install my-project with npm
-
 ```bash
   $ pip install -r requirements.txt
   $ python main.py
