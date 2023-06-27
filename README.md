@@ -3,10 +3,6 @@
 
 A game server panel coded on python using flask and docker api. It's like a docker gui but in web browser
 
-# gameserver-panel
-
-A game server panel coded on python using flask and docker api. It's like a docker gui but in a web browser
-
 
 ## Installation
 
